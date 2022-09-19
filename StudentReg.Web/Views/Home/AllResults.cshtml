@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewBag.Title = "AllResults";
+}
+
+
+<h2>AllResults</h2>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <label for="year">Exam :</label>
+        <select name="year" id="year" class="m-2 col-lg-6">
+            <option value="0"> -- Select Year -- </option>
+            @{
+                int startYear = DateTime.Now.Year - 1;
+
+                for (int i = startYear; i < (startYear + 5); i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-md-4">
+
+        <label for="regno">Reg No :</label>
+        @*<div class="ui-widget" >*@
+        <input id="regno" name="regno" class="m-2 col-lg-6">
+        @*</div>*@
+    </div>
+    <div class="mt-2 col-md-4">
+        <button type="button" onclick="loadResults()" class="btn btn-primary btn-lg btn-block">Search</button>
+    </div>
+
+
+</div>
+
+<div class="row">
+
+    <h2>Assingment Results</h2>
+    <table class="table table-sm" id="tbla">
+
+        <thead>
+            <tr>
+                <th scope="col">RegNo</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Assingment Name</th>
+                <th scope="col">Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+
+    <h2>Exam Results</h2>
+
+    <table class="table table-sm" id="tble">
+        <thead>
+            <tr>
+                <th scope="col">RegNo</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Exam Name</th>
+                <th scope="col">Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+    });
+
+
+    function loadResults() {
+
+        if (
+            $('#year').val() != 0 &&
+            $('#regno').val() != 0
+        ) {
+
+            //alert('loadResults');
+
+            var d = {
+                year: $('#year').val(),
+                regno: $('#regno').val()
+            };
+
+            $.ajax({
+                url: "/Home/LoadAllAssingmentResults/",
+                type: "POST",
+                cache: false,
+                data: d,
+                //contentType: false,
+                enctype: 'multipart/form-data',
+                async: true,
+                //processData: false,
+                success: function (data) {
+
+                    console.log('LoadAllAssingmentResults ',data);
+
+                    $.each(data, function (index, item) {
+
+                        $('#tbla tr:last').after('<tr>\
+                        <td>' + item['RegNo'] + '</td>\
+                        <td>' + item['FName'] + '&nbsp;' + item['LName'] + '</td>\
+                        <td>' + item['AssingmnetName'] + '</td>\
+                        <td>' + item['Mark'] + '</td>\
+                        </tr>');
+
+                    });
+
+                }
+                , error: function (xhr, status, error2) {
+                    console.log(xhr.responseText);
+                }
+            }).done(function (data) {
+                //alert('done');
+            });
+
+            $.ajax({
+                url: "/Home/LoadAllExamResults/",
+                type: "POST",
+                cache: false,
+                data: d,
+                //contentType: false,
+                enctype: 'multipart/form-data',
+                async: true,
+                //processData: false,
+                success: function (data) {
+
+                    console.log('LoadAllAssingmentResults ', data);
+
+                    $.each(data, function (index, item) {
+
+                        $('#tble tr:last').after('<tr>\
+                        <td>' + item['RegNo'] + '</td>\
+                        <td>' + item['FName'] + '&nbsp;' + item['LName'] + '</td>\
+                        <td>' + item['ExamName'] + '</td>\
+                        <td>' + item['Mark'] + '</td>\
+                        </tr>');
+
+                    });
+
+                }
+                , error: function (xhr, status, error2) {
+                    console.log(xhr.responseText);
+                }
+            }).done(function (data) {
+                //alert('done');
+            });
+
+        }
+    }
+
+</script>

@@ -1,0 +1,302 @@
+﻿
+@{
+    ViewBag.Title = "ListAll";
+    Layout = "~/Views/Shared/_LayoutStudentReg.cshtml";
+}
+
+<style>
+    .tblCell {
+        border: 1px solid #E6E6E6;
+        padding: 5px;
+        width: 10%;
+    }
+
+    .frm-grp {
+        margin-bottom: 0px;
+    }
+
+    .lbl-title {
+        font-size: 12px !important;
+        font-weight: bold;
+        margin-bottom: 0px;
+    }
+
+    .txt-box {
+        /*background-color: cornflowerblue !important;*/
+        /*background-color: deepskyblue !important;*/
+        background-color: white !important;
+        color: black;
+        font-size: 12px;
+    }
+</style>
+
+<style>
+
+    <style >
+    html, body {
+        min-height: 100%;
+    }
+
+    body, div, form, input, select, p {
+        padding: 0;
+        margin: 0;
+        outline: none;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 14px;
+        color: #666;
+        line-height: 22px;
+    }
+
+    h1 {
+        margin: 15px 0;
+        font-weight: 400;
+    }
+
+    .testbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: inherit;
+        padding: 3px;
+    }
+
+    form {
+        width: 100%;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 2px 5px #ccc;
+    }
+
+    input, select, textarea {
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    input {
+        width: calc(100% - 10px);
+        padding: 5px;
+    }
+
+    select {
+        /*width: 100%;*/
+        calc(100% - 10px);
+        padding: 7px 0;
+        background: transparent;
+    }
+
+    textarea {
+        width: calc(100% - 6px);
+    }
+
+    .item {
+        position: relative;
+        margin: 10px 0;
+    }
+
+        .item:hover p, .item:hover i {
+            color: #095484;
+        }
+
+    input:hover, select:hover, textarea:hover, .preferred-metod label:hover input {
+        box-shadow: 0 0 5px 0 #095484;
+    }
+
+    .preferred-metod label {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .preferred-metod:hover input {
+        box-shadow: none;
+    }
+
+    .preferred-metod-item input, .preferred-metod-item span {
+        width: auto;
+        vertical-align: middle;
+    }
+
+    .preferred-metod-item input {
+        margin: 0 5px 0 0;
+    }
+
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        font-size: 20px;
+        color: #a9a9a9;
+    }
+
+    .item i {
+        right: 1%;
+        top: 30px;
+        z-index: 1;
+    }
+
+    [type="date"]::-webkit-calendar-picker-indicator {
+        right: 0;
+        z-index: 2;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .btn-block {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    button {
+        width: 150px;
+        padding: 10px;
+        border: none;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #095484;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #0666a3;
+        }
+
+    @@media (min-width: 568px) {
+        .name-item, .city-item {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+            .name-item input, .city-item input {
+                width: calc(50% - 20px);
+            }
+
+            .city-item select {
+                width: calc(50% - 8px);
+            }
+    }
+</style>
+
+<div class="row">
+    <h5>Student List</h5>
+    <br /><br />
+    @using (Html.BeginForm("SearchSubject", "Subject", FormMethod.Post))
+    {
+        <input type="text" name="searchKey" placeholder="Enter Search Parameter" />
+        <select name="searchBy">
+            <option value="1">-- Select Search Data -- </option>
+            <option value="1">Name</option>
+            <option value="2">Description</option>
+            <option value="3">Year</option>
+            <option value="4">Grade</option>
+            <option value="5">Term</option>
+        </select>
+        <input type="submit" />
+    }
+
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Year</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Term</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                int ix = 1;
+            }
+
+            @foreach (var item in ViewBag.SubjectList)
+            {
+                <tr>
+                    <td>@ix</td>
+                    <td>@item.Name</td>
+                    <td>@item.Year</td>
+                    <td>@item.Grade</td>
+                    <td>@item.Term</td>
+                    <td>
+                        <button onclick="document.location='/Subject/Edit?id=@item.Id'" type="button" class="btn-primary btn-sm">&nbsp;Edit&nbsp;</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn-danger btn-sm" onclick="deleteSubject(@item.Id)">Delete</button>
+                    </td>
+                </tr>
+
+                ix++;
+            }
+        </tbody>
+    </table>
+</div>
+<div class="alert alert-success alert-dismissible fade show mt-2" id="salert" role="alert">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    New Subject Record Updated Successfully !
+</div>
+
+<div class="alert alert-danger alert-dismissible fade show mt-2" id="ealert" role="alert">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    New Subject Record Failed to update !
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#ealert").attr('hidden', true)
+        $("#salert").attr('hidden', true)
+
+        let searchParams = new URLSearchParams(window.location.search);
+
+        console.log('searchParams.get updated) ', searchParams.get('subuscc'));
+        console.log('searchParams.get(error) ', searchParams.get('subuerr'))
+
+
+        if (searchParams.get('subuscc')) {
+            $("#salert").attr('hidden', false)
+        }
+        if (searchParams.get('subuerr')) {
+            $("#ealert").attr('hidden', false)
+        }
+
+
+    })
+
+
+    function deleteSubject(id) {
+
+        $.ajax({
+            url: "/Subject/DeleteSubject/",
+            type: "POST",
+            cache: false,
+            data: { Id: id },
+            //contentType: false,
+            enctype: 'multipart/form-data',
+            async: true,
+            //processData: false,
+            success: function (data) {
+                alert('successful');
+            }
+            , error: function (xhr, status, error2) {
+                swal({
+                    text: xhr.responseText,
+                    button: "Ok",
+                    icon: "error",
+                    timer: 3000,
+                });
+            }
+        }).done(function (data) {
+            debugger;
+            hideLoader();
+        });
+
+    }
+
+</script>

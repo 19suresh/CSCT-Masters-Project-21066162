@@ -1,0 +1,268 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutStudentReg.cshtml";
+}
+
+
+
+<style>
+    .tblCell {
+        border: 1px solid #E6E6E6;
+        padding: 5px;
+        width: 10%;
+    }
+
+    .frm-grp {
+        margin-bottom: 0px;
+    }
+
+    .lbl-title {
+        font-size: 12px !important;
+        font-weight: bold;
+        margin-bottom: 0px;
+    }
+
+    .txt-box {
+        /*background-color: cornflowerblue !important;*/
+        /*background-color: deepskyblue !important;*/
+        background-color: white !important;
+        color: black;
+        font-size: 12px;
+    }
+</style>
+
+<style>
+
+    <style >
+    html, body {
+        min-height: 100%;
+    }
+
+    body, div, form, input, select, p {
+        padding: 0;
+        margin: 0;
+        outline: none;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 14px;
+        color: #666;
+        line-height: 22px;
+    }
+
+    h1 {
+        margin: 15px 0;
+        font-weight: 400;
+    }
+
+    .testbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: inherit;
+        padding: 3px;
+    }
+
+    form {
+        width: 100%;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 2px 5px #ccc;
+    }
+
+    input, select, textarea {
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    input {
+        width: calc(100% - 10px);
+        padding: 5px;
+    }
+
+    select {
+        /*width: 100%;*/
+        calc(100% - 10px);
+        padding: 7px 0;
+        background: transparent;
+    }
+
+    textarea {
+        width: calc(100% - 6px);
+    }
+
+    .item {
+        position: relative;
+        margin: 10px 0;
+    }
+
+        .item:hover p, .item:hover i {
+            color: #095484;
+        }
+
+    input:hover, select:hover, textarea:hover, .preferred-metod label:hover input {
+        box-shadow: 0 0 5px 0 #095484;
+    }
+
+    .preferred-metod label {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .preferred-metod:hover input {
+        box-shadow: none;
+    }
+
+    .preferred-metod-item input, .preferred-metod-item span {
+        width: auto;
+        vertical-align: middle;
+    }
+
+    .preferred-metod-item input {
+        margin: 0 5px 0 0;
+    }
+
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        font-size: 20px;
+        color: #a9a9a9;
+    }
+
+    .item i {
+        right: 1%;
+        top: 30px;
+        z-index: 1;
+    }
+
+    [type="date"]::-webkit-calendar-picker-indicator {
+        right: 0;
+        z-index: 2;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .btn-block {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    button {
+        width: 150px;
+        padding: 10px;
+        border: none;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #095484;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #0666a3;
+        }
+
+    @@media (min-width: 568px) {
+        .name-item, .city-item {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+            .name-item input, .city-item input {
+                width: calc(50% - 20px);
+            }
+
+            .city-item select {
+                width: calc(50% - 8px);
+            }
+    }
+</style>
+
+@*<div class="row" style="text-align:center;">
+        <h4>Register Student</h4>
+    </div>*@
+
+<div class="row">
+    @using (Html.BeginForm("SaveStudent", "Student", FormMethod.Post))
+    {
+        <h5>Register New Student</h5>
+        <div class="item">
+            <p>Reg No :</p>
+            <div class="name-item">
+                <input type="text" name="RegNo" placeholder="Reg No" />
+            </div>
+            <p>Title : </p>
+            <div class="name-item">
+                <select name="Title">
+                    <option value="1">Mr.</option>
+                    <option value="0">Ms.</option>
+                </select>
+            </div>
+            <p>Student Name</p>
+            <div class="name-item">
+                <input type="text" name="FName" placeholder="First Name" />
+                <input type="text" name="LName" placeholder="Last Name" />
+            </div>
+            <p>Date of Birth : </p>
+            <div class="name-item">
+                <input type="date" name="DoB" placeholder="First Name" />
+            </div>
+            <p>NIC</p>
+            <div class="name-item">
+                <input type="text" name="NIC" placeholder="Enter NIC here" />
+            </div>
+
+        </div>
+        @*<div class="item">
+                <p>Major</p>
+                <input type="text" name="name" />
+            </div>*@
+        <input type="submit" value="Save" />
+    }
+
+</div>
+
+<div class="alert alert-success alert-dismissible fade show mt-2" id="salert" role="alert">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    New Student Record Created Successfully !
+</div>
+
+<div class="alert alert-danger alert-dismissible fade show mt-2" id="ealert" role="alert">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    New Student Record Failed to create !
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#ealert").attr('hidden', true)
+        $("#salert").attr('hidden', true)
+
+        let searchParams = new URLSearchParams(window.location.search);
+
+        console.log('searchParams.get updated) ', searchParams.get('stdcscc'));
+        console.log('searchParams.get(error) ', searchParams.get('stdcerr'))
+
+
+        if (searchParams.get('stdcscc')) {
+            $("#salert").attr('hidden', false)
+        }
+        if (searchParams.get('stdcerr')) {
+            $("#ealert").attr('hidden', false)
+        }
+
+
+    })
+</script>
+<script src="~/Scripts/ViewScripts/EmployeeSearch.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+

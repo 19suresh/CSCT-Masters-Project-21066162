@@ -1,0 +1,624 @@
+﻿
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_LayoutStudentReg.cshtml";
+}
+
+
+<style>
+    .tblCell {
+        border: 1px solid #E6E6E6;
+        padding: 5px;
+        width: 10%;
+    }
+
+    .frm-grp {
+        margin-bottom: 0px;
+    }
+
+    .lbl-title {
+        font-size: 12px !important;
+        font-weight: bold;
+        margin-bottom: 0px;
+    }
+
+    .txt-box {
+        /*background-color: cornflowerblue !important;*/
+        /*background-color: deepskyblue !important;*/
+        background-color: white !important;
+        color: black;
+        font-size: 12px;
+    }
+</style>
+
+<style>
+
+    html, body {
+        min-height: 100%;
+    }
+
+    body, div, form, input, select, p {
+        padding: 0;
+        margin: 0;
+        outline: none;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 14px;
+        color: #666;
+        line-height: 22px;
+    }
+
+    h1 {
+        margin: 15px 0;
+        font-weight: 400;
+    }
+
+    .testbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: inherit;
+        padding: 3px;
+    }
+
+    form {
+        width: 100%;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 2px 5px #ccc;
+    }
+
+    input, select, textarea {
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    input {
+        width: calc(100% - 10px);
+        padding: 5px;
+    }
+
+    .widebtn {
+        width: calc(100% - 10px);
+        padding: 5px;
+    }
+
+
+    select {
+        /*width: 100%;*/
+        calc(100% - 10px);
+        padding: 7px 0;
+        background: transparent;
+    }
+
+    textarea {
+        width: calc(100% - 6px);
+    }
+
+    .item {
+        position: relative;
+        margin: 10px 0;
+    }
+
+        .item:hover p, .item:hover i {
+            color: #095484;
+        }
+
+    input:hover, select:hover, textarea:hover, .preferred-metod label:hover input {
+        box-shadow: 0 0 5px 0 #095484;
+    }
+
+    .preferred-metod label {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .preferred-metod:hover input {
+        box-shadow: none;
+    }
+
+    .preferred-metod-item input, .preferred-metod-item span {
+        width: auto;
+        vertical-align: middle;
+    }
+
+    .preferred-metod-item input {
+        margin: 0 5px 0 0;
+    }
+
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        font-size: 20px;
+        color: #a9a9a9;
+    }
+
+    .item i {
+        right: 1%;
+        top: 30px;
+        z-index: 1;
+    }
+
+    [type="date"]::-webkit-calendar-picker-indicator {
+        right: 0;
+        z-index: 2;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .btn-block {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    button {
+        width: 150px;
+        padding: 10px;
+        border: none;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #095484;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #0666a3;
+        }
+
+    @@media (min-width: 568px) {
+        .name-item, .city-item {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+            .name-item input, .city-item input {
+                width: calc(50% - 20px);
+            }
+
+            .city-item select {
+                width: calc(50% - 8px);
+            }
+    }
+</style>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+@*<script src="https://code.jquery.com/jquery-3.6.0.js"></script>*@
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script>
+
+</script>
+
+<script>
+    function insertResultssssss() {
+
+        alert('asdasd');
+
+
+        $.ajax({
+            url: "/Exam/SaveResult/",
+            type: "POST",
+            cache: false,
+            data: obj,
+            //contentType: false,
+            enctype: 'multipart/form-data',
+            async: true,
+            //processData: false,
+            success: function (data) {
+                alert('successful');
+            }
+            , error: function (xhr, status, error2) {
+                swal({
+                    text: xhr.responseText,
+                    button: "Ok",
+                    icon: "error",
+                    timer: 3000,
+                });
+            }
+        }).done(function (data) {
+            debugger;
+            hideLoader();
+        });
+
+    }
+</script>
+
+
+<div class="row">
+    <h5>Register New Student</h5>
+</div>
+
+<div class="row">
+    <div class="item">
+        <p hidden>Id</p>
+        <div hidden class="name-item">
+            <input hidden type="text" name="Id" />
+        </div>
+
+        @*<p>Exam :</p>*@
+
+        <div class="name-item">
+            <p>Exam :</p>
+            <select name="year" id="year" class="col-lg-2">
+                <option value="0"> -- Select Year -- </option>
+                @{
+                    int startYear = DateTime.Now.Year - 1;
+
+                    for (int i = startYear; i < (startYear + 5); i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                }
+            </select>
+
+            <p>Grade :</p>
+            <select name="grade" id="grade" class="col-lg-2">
+                <option value="0"> -- Select Grade -- </option>
+                @{
+                    for (int i = 1; i < 14; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                }
+            </select>
+
+            <p>Term :</p>
+            <select name="term" id="term" class="col-lg-2">
+                <option value="0"> -- Select Term -- </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+
+            <p>Exam :</p>
+            <select name="exam" id="exam" class="col-lg-3">
+                <option value="0"> -- Select Exam -- </option>
+            </select>
+
+        </div>
+
+    </div>
+
+    <div class="item">
+        <div class="name-item">
+            <p>Subject :</p>
+
+            <select name="subject" id="subject" class="col-lg-2">
+                <option value="0"> -- Select Subject -- </option>
+            </select>
+
+            <p>Evaluated By :</p>
+            <select name="evaluatedby" id="evaluatedby" class="col-lg-3">
+                <option value="0"> -- Select Teacher -- </option>
+                @{
+                    foreach (var item in ViewBag.Teachers)
+                    {
+                        <option value="@item.Id">@item.FName @item.LName</option>
+                    }
+                }
+            </select>
+
+            <p>Reg No :</p>
+            @*<div class="ui-widget" >*@
+            <input id="regno" name="regno" class="col-lg-2">
+            @*</div>*@
+            <div class="col-lg-2"></div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="item">
+        <p>Marks :</p>
+        <div class="name-item">
+            <input type="text" name="mark" id="mark" style="width:100%" placeholder="Enter marks here" />
+            <textarea id="remarks" name="remarks" placeholder="Enter remarks here"></textarea>
+        </div>
+
+    </div>
+    <button onclick="test()" class="widebtn">Save</button>
+</div>
+
+
+
+<table class="table table-sm" id="tbl">
+    <thead>
+        <tr>
+            <th scope="col">RegNo</th>
+            <th scope="col">Name</th>
+            <th scope="col">Mark</th>
+            <th scope="col">Remark</th>
+            <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+<script>
+
+    var _year, _grade, _term;
+    var StudentRegNo = "";
+    // var studentId;
+
+    $(document).ready(function () {
+
+        $('#year').on('change', function () {
+            _year = this.value;
+            searchExams();
+            loadResults();
+        });
+
+        $('#grade').on('change', function () {
+            _grade = this.value;
+            searchExams();
+            loadResults();
+        });
+
+        $('#term').on('change', function () {
+            _term = this.value;
+            searchExams();
+            loadResults();
+        });
+
+        $('#exam').on('change', function () {
+            loadResults();
+        });
+
+        $('#subject').on('change', function () {
+            loadResults();
+        });
+
+
+        $("#tags").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Student/LoadStudents/',
+                    data: { grade: 13 },
+                    //dataType: "json",
+                    type: "POST",
+                    //contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.RegNo,
+                                value: item.RegNo
+                            }
+                        }));
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    },
+                    failure: function (response) {
+                        console.log(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                //$("#tags").val(i.item.val);
+                //console.log(e);
+                //console.log(i);
+            },
+            minLength: 1
+        });
+
+
+    });
+
+    function searchExams() {
+
+        $('#exam').find('option:not(:first)').remove();
+
+        if ($('#year').val() != 0 && $('#grade').val() != 0 && $('#term').val() != 0) {
+
+            var d = {
+                year: $('#year').val(),
+                grade: $('#grade').val(),
+                term: $('#term').val()
+            };
+
+            $.ajax({
+                url: "/Exam/LoadExams/",
+                type: "POST",
+                cache: false,
+                data: d,
+                //contentType: false,
+                enctype: 'multipart/form-data',
+                async: true,
+                //processData: false,
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        $('#exam').append($('<option>', {
+                            value: item.Id,
+                            text: item.Name
+                        }));
+                    });
+                }
+                , error: function (xhr, status, error2) {
+                    console.log(xhr.responseText);
+                }
+            }).done(function (data) {
+                //alert('done');
+            });
+
+
+            $.ajax({
+                url: "/Exam/LoadSubjects/",
+                type: "POST",
+                cache: false,
+                data: d,
+                //contentType: false,
+                enctype: 'multipart/form-data',
+                async: true,
+                //processData: false,
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        $('#subject').append($('<option>', {
+                            value: item.Id,
+                            text: item.Name
+                        }));
+                    });
+                }
+                , error: function (xhr, status, error2) {
+                    console.log(xhr.responseText);
+                }
+            }).done(function (data) {
+                //alert('done');
+            });
+        }
+    }
+
+    function test() {
+
+        debugger;
+
+        var obj = {
+            RegNo: $('#regno').val(),
+            SubjectId: $('#subject').val(),
+            ExamId: $('#exam').val(),
+            Mark: $('#mark').val(),
+            Grade: $('#grade').val(),
+            Remarks: $('#reark').val(),
+            EvaluatedBy: $('#evaluatedby').val(),
+            Year: $('#year').val(),
+            Term: $('#term').val(),
+            Remarks: $('#remarks').val(),
+            StudentId: $('#Id').val()
+        };
+
+        console.log(obj);
+
+        $.ajax({
+            url: "/Exam/SaveResult/",
+            type: "POST",
+            cache: false,
+            data: obj,
+            //dataType: "json",
+            //contentType: false,
+            //enctype: 'multipart/form-data',
+            async: false,
+            //processData: false,
+            success: function (data) {
+                debugger
+                console.log('succ');
+                console.log(data);
+
+                $('#tbl tr:last').after('<tr>\
+<td>' + data['RegNo'] + '</td>\
+<td>' + data['FName'] + '&nbsp;' + data['LName'] + '</td>\
+<td>' + data['Mark'] + '</td>\
+<td>' + data['Remarks'] + '</td>\
+<td> <button onclick="DeleteResult(' + data['Id'] + ')" type="button" class="btn-primary btn-sm">&nbsp;Delete&nbsp;</button> </td>\
+</tr>');
+
+            }
+            , error: function (xhr, status, error2) {
+                console.log(xhr.responseText);
+            }
+        }).done(function (data) {
+            //alert('done');
+        });
+
+
+        //alert("yey");
+    }
+
+    function loadResults() {
+
+        if (
+            $('#year').val() != 0 &&
+            $('#grade').val() != 0 &&
+            $('#term').val() != 0 &&
+            $('#exam').val() != 0 &&
+            $('#subject').val() != 0
+        ) {
+
+            //alert('loadResults');
+
+            var d = {
+                year: $('#year').val(),
+                grade: $('#grade').val(),
+                term: $('#term').val(),
+                examId: $('#exam').val(),
+                subjectId: $('#subject').val()
+            };
+
+            $.ajax({
+                url: "/Exam/LoadBulkResults/",
+                type: "POST",
+                cache: false,
+                data: d,
+                //contentType: false,
+                enctype: 'multipart/form-data',
+                async: true,
+                //processData: false,
+                success: function (data) {
+
+                    console.log(data);
+
+                    $.each(data, function (index, item) {
+
+                        $('#tbl tr:last').after('<tr>\
+<td>' + item['RegNo'] + '</td>\
+<td>' + item['FName'] + '&nbsp;' + item['LName'] + '</td>\
+<td>' + item['Mark'] + '</td>\
+<td>' + item['Remarks'] + '</td>\
+<td> <button onclick="DeleteResult(' + item['Id'] + ')" type="button" class="btn-primary btn-sm">&nbsp;Delete&nbsp;</button> </td>\
+</tr>');
+
+                    });
+
+                }
+                , error: function (xhr, status, error2) {
+                    console.log(xhr.responseText);
+                }
+            }).done(function (data) {
+                //alert('done');
+            });
+
+        }
+    }
+
+    function DeleteResult(_id) {
+
+        
+            $.ajax({
+                url: "/Exam/DeleteResult/",
+                type: "POST",
+                cache: false,
+                data: { id: _id },
+                //contentType: false,
+                enctype: 'multipart/form-data',
+                async: true,
+                //processData: false,
+                success: function (data) {
+
+                    $("#tbl").find("tr:gt(0)").remove();
+
+                    loadResults();
+                }
+                , error: function (xhr, status, error2) {
+                    console.log(xhr.responseText);
+                }
+            }).done(function (data) {
+                //alert('done');
+            });
+        loadResults();
+    }
+
+</script>
+

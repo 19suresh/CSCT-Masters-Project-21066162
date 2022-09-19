@@ -1,0 +1,667 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StudentRegModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_ASSIGNMENT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="SubjectId" Type="int" />
+          <Property Name="Grade" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="DueDate" Type="datetime" />
+          <Property Name="Term" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_ASSINGMENT_RESULT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectId" Type="int" />
+          <Property Name="AssingmentId" Type="int" />
+          <Property Name="Mark" Type="int" />
+          <Property Name="Grade" Type="int" />
+          <Property Name="Remarks" Type="varchar" MaxLength="500" />
+          <Property Name="EvaluatedBy" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Term" Type="int" />
+          <Property Name="RegNo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_EXAM">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Term" Type="int" />
+          <Property Name="Grade" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_EXAM_RESULT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectId" Type="int" />
+          <Property Name="ExamId" Type="int" />
+          <Property Name="Mark" Type="int" />
+          <Property Name="Grade" Type="int" />
+          <Property Name="Remarks" Type="varchar" MaxLength="500" />
+          <Property Name="EvaluatedBy" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Term" Type="int" />
+          <Property Name="RegNo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_STAFF_ATTENDANCE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffId" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="AttendanceStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_STUDENT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegNo" Type="varchar" MaxLength="50" />
+          <Property Name="FName" Type="varchar" MaxLength="50" />
+          <Property Name="LName" Type="varchar" MaxLength="50" />
+          <Property Name="DoB" Type="date" />
+          <Property Name="NIC" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="int" />
+          <Property Name="Grade" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_STUDENT_ATTENDANCE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="AttendanceStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_SUBJECT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Grade" Type="int" />
+          <Property Name="Term" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_SYSUSER">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="500" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_TEACHER">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegNo" Type="varchar" MaxLength="50" />
+          <Property Name="FName" Type="varchar" MaxLength="50" />
+          <Property Name="LName" Type="varchar" MaxLength="50" />
+          <Property Name="DoB" Type="date" />
+          <Property Name="NIC" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="int" />
+        </EntityType>
+        <Association Name="FK_TBL_ASSIGNMENT_TBL_SUBJECT">
+          <End Role="TBL_SUBJECT" Type="Self.TBL_SUBJECT" Multiplicity="0..1" />
+          <End Role="TBL_ASSIGNMENT" Type="Self.TBL_ASSIGNMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_SUBJECT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_ASSIGNMENT">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ASSINGMENT_RESULT_TBL_ASSIGNMENT">
+          <End Role="TBL_ASSIGNMENT" Type="Self.TBL_ASSIGNMENT" Multiplicity="0..1" />
+          <End Role="TBL_ASSINGMENT_RESULT" Type="Self.TBL_ASSINGMENT_RESULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ASSIGNMENT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_ASSINGMENT_RESULT">
+              <PropertyRef Name="AssingmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ASSINGMENT_RESULT_TBL_SUBJECT">
+          <End Role="TBL_SUBJECT" Type="Self.TBL_SUBJECT" Multiplicity="0..1" />
+          <End Role="TBL_ASSINGMENT_RESULT" Type="Self.TBL_ASSINGMENT_RESULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_SUBJECT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_ASSINGMENT_RESULT">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_EXAM_RESULT_TBL_EXAM">
+          <End Role="TBL_EXAM" Type="Self.TBL_EXAM" Multiplicity="0..1" />
+          <End Role="TBL_EXAM_RESULT" Type="Self.TBL_EXAM_RESULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EXAM">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_EXAM_RESULT">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_EXAM_RESULT_TBL_SUBJECT">
+          <End Role="TBL_SUBJECT" Type="Self.TBL_SUBJECT" Multiplicity="0..1" />
+          <End Role="TBL_EXAM_RESULT" Type="Self.TBL_EXAM_RESULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_SUBJECT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_EXAM_RESULT">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_STAFF_ATTENDANCE_TBL_STAFF_ATTENDANCE">
+          <End Role="TBL_TEACHER" Type="Self.TBL_TEACHER" Multiplicity="0..1" />
+          <End Role="TBL_STAFF_ATTENDANCE" Type="Self.TBL_STAFF_ATTENDANCE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_TEACHER">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_STAFF_ATTENDANCE">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_STUDENT_ATTENDANCE_TBL_STUDENT">
+          <End Role="TBL_STUDENT" Type="Self.TBL_STUDENT" Multiplicity="0..1" />
+          <End Role="TBL_STUDENT_ATTENDANCE" Type="Self.TBL_STUDENT_ATTENDANCE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_STUDENT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_STUDENT_ATTENDANCE">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudentRegModelStoreContainer">
+          <EntitySet Name="TBL_ASSIGNMENT" EntityType="Self.TBL_ASSIGNMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ASSINGMENT_RESULT" EntityType="Self.TBL_ASSINGMENT_RESULT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_EXAM" EntityType="Self.TBL_EXAM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_EXAM_RESULT" EntityType="Self.TBL_EXAM_RESULT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_STAFF_ATTENDANCE" EntityType="Self.TBL_STAFF_ATTENDANCE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_STUDENT" EntityType="Self.TBL_STUDENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_STUDENT_ATTENDANCE" EntityType="Self.TBL_STUDENT_ATTENDANCE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_SUBJECT" EntityType="Self.TBL_SUBJECT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_SYSUSER" EntityType="Self.TBL_SYSUSER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_TEACHER" EntityType="Self.TBL_TEACHER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_ASSIGNMENT_TBL_SUBJECT" Association="Self.FK_TBL_ASSIGNMENT_TBL_SUBJECT">
+            <End Role="TBL_SUBJECT" EntitySet="TBL_SUBJECT" />
+            <End Role="TBL_ASSIGNMENT" EntitySet="TBL_ASSIGNMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ASSINGMENT_RESULT_TBL_ASSIGNMENT" Association="Self.FK_TBL_ASSINGMENT_RESULT_TBL_ASSIGNMENT">
+            <End Role="TBL_ASSIGNMENT" EntitySet="TBL_ASSIGNMENT" />
+            <End Role="TBL_ASSINGMENT_RESULT" EntitySet="TBL_ASSINGMENT_RESULT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ASSINGMENT_RESULT_TBL_SUBJECT" Association="Self.FK_TBL_ASSINGMENT_RESULT_TBL_SUBJECT">
+            <End Role="TBL_SUBJECT" EntitySet="TBL_SUBJECT" />
+            <End Role="TBL_ASSINGMENT_RESULT" EntitySet="TBL_ASSINGMENT_RESULT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_EXAM_RESULT_TBL_EXAM" Association="Self.FK_TBL_EXAM_RESULT_TBL_EXAM">
+            <End Role="TBL_EXAM" EntitySet="TBL_EXAM" />
+            <End Role="TBL_EXAM_RESULT" EntitySet="TBL_EXAM_RESULT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_EXAM_RESULT_TBL_SUBJECT" Association="Self.FK_TBL_EXAM_RESULT_TBL_SUBJECT">
+            <End Role="TBL_SUBJECT" EntitySet="TBL_SUBJECT" />
+            <End Role="TBL_EXAM_RESULT" EntitySet="TBL_EXAM_RESULT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_STAFF_ATTENDANCE_TBL_STAFF_ATTENDANCE" Association="Self.FK_TBL_STAFF_ATTENDANCE_TBL_STAFF_ATTENDANCE">
+            <End Role="TBL_TEACHER" EntitySet="TBL_TEACHER" />
+            <End Role="TBL_STAFF_ATTENDANCE" EntitySet="TBL_STAFF_ATTENDANCE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_STUDENT_ATTENDANCE_TBL_STUDENT" Association="Self.FK_TBL_STUDENT_ATTENDANCE_TBL_STUDENT">
+            <End Role="TBL_STUDENT" EntitySet="TBL_STUDENT" />
+            <End Role="TBL_STUDENT_ATTENDANCE" EntitySet="TBL_STUDENT_ATTENDANCE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StudentRegModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_ASSIGNMENT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="SubjectId" Type="Int32" />
+          <Property Name="Grade" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <Property Name="Term" Type="Int32" />
+          <NavigationProperty Name="TBL_SUBJECT" Relationship="Self.FK_TBL_ASSIGNMENT_TBL_SUBJECT" FromRole="TBL_ASSIGNMENT" ToRole="TBL_SUBJECT" />
+          <NavigationProperty Name="TBL_ASSINGMENT_RESULT" Relationship="StudentRegModel.FK_TBL_ASSINGMENT_RESULT_TBL_ASSIGNMENT" FromRole="TBL_ASSIGNMENT" ToRole="TBL_ASSINGMENT_RESULT" />
+        </EntityType>
+        <EntityType Name="TBL_EXAM">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Term" Type="Int32" />
+          <Property Name="Grade" Type="Int32" />
+          <NavigationProperty Name="TBL_EXAM_RESULT" Relationship="Self.FK_TBL_EXAM_RESULT_TBL_EXAM" FromRole="TBL_EXAM" ToRole="TBL_EXAM_RESULT" />
+        </EntityType>
+        <EntityType Name="TBL_EXAM_RESULT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectId" Type="Int32" />
+          <Property Name="ExamId" Type="Int32" />
+          <Property Name="Mark" Type="Int32" />
+          <Property Name="Grade" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="EvaluatedBy" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Term" Type="Int32" />
+          <Property Name="RegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_EXAM" Relationship="Self.FK_TBL_EXAM_RESULT_TBL_EXAM" FromRole="TBL_EXAM_RESULT" ToRole="TBL_EXAM" />
+          <NavigationProperty Name="TBL_SUBJECT" Relationship="Self.FK_TBL_EXAM_RESULT_TBL_SUBJECT" FromRole="TBL_EXAM_RESULT" ToRole="TBL_SUBJECT" />
+        </EntityType>
+        <EntityType Name="TBL_STAFF_ATTENDANCE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StaffId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="AttendanceStatus" Type="Int32" />
+          <NavigationProperty Name="TBL_TEACHER" Relationship="Self.FK_TBL_STAFF_ATTENDANCE_TBL_STAFF_ATTENDANCE" FromRole="TBL_STAFF_ATTENDANCE" ToRole="TBL_TEACHER" />
+        </EntityType>
+        <EntityType Name="TBL_STUDENT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DoB" Type="DateTime" Precision="0" />
+          <Property Name="NIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="Int32" />
+          <Property Name="Grade" Type="Int32" />
+          <NavigationProperty Name="TBL_STUDENT_ATTENDANCE" Relationship="Self.FK_TBL_STUDENT_ATTENDANCE_TBL_STUDENT" FromRole="TBL_STUDENT" ToRole="TBL_STUDENT_ATTENDANCE" />
+        </EntityType>
+        <EntityType Name="TBL_STUDENT_ATTENDANCE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="AttendanceStatus" Type="Int32" />
+          <NavigationProperty Name="TBL_STUDENT" Relationship="Self.FK_TBL_STUDENT_ATTENDANCE_TBL_STUDENT" FromRole="TBL_STUDENT_ATTENDANCE" ToRole="TBL_STUDENT" />
+        </EntityType>
+        <EntityType Name="TBL_SUBJECT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Grade" Type="Int32" />
+          <Property Name="Term" Type="Int32" />
+          <NavigationProperty Name="TBL_ASSIGNMENT" Relationship="Self.FK_TBL_ASSIGNMENT_TBL_SUBJECT" FromRole="TBL_SUBJECT" ToRole="TBL_ASSIGNMENT" />
+          <NavigationProperty Name="TBL_EXAM_RESULT" Relationship="Self.FK_TBL_EXAM_RESULT_TBL_SUBJECT" FromRole="TBL_SUBJECT" ToRole="TBL_EXAM_RESULT" />
+          <NavigationProperty Name="TBL_ASSINGMENT_RESULT" Relationship="StudentRegModel.FK_TBL_ASSINGMENT_RESULT_TBL_SUBJECT" FromRole="TBL_SUBJECT" ToRole="TBL_ASSINGMENT_RESULT" />
+        </EntityType>
+        <EntityType Name="TBL_SYSUSER">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TBL_TEACHER">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DoB" Type="DateTime" Precision="0" />
+          <Property Name="NIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="Int32" />
+          <NavigationProperty Name="TBL_STAFF_ATTENDANCE" Relationship="Self.FK_TBL_STAFF_ATTENDANCE_TBL_STAFF_ATTENDANCE" FromRole="TBL_TEACHER" ToRole="TBL_STAFF_ATTENDANCE" />
+        </EntityType>
+        <Association Name="FK_TBL_ASSIGNMENT_TBL_SUBJECT">
+          <End Role="TBL_SUBJECT" Type="Self.TBL_SUBJECT" Multiplicity="0..1" />
+          <End Role="TBL_ASSIGNMENT" Type="Self.TBL_ASSIGNMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_SUBJECT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_ASSIGNMENT">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_EXAM_RESULT_TBL_EXAM">
+          <End Role="TBL_EXAM" Type="Self.TBL_EXAM" Multiplicity="0..1" />
+          <End Role="TBL_EXAM_RESULT" Type="Self.TBL_EXAM_RESULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_EXAM">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_EXAM_RESULT">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_EXAM_RESULT_TBL_SUBJECT">
+          <End Role="TBL_SUBJECT" Type="Self.TBL_SUBJECT" Multiplicity="0..1" />
+          <End Role="TBL_EXAM_RESULT" Type="Self.TBL_EXAM_RESULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_SUBJECT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_EXAM_RESULT">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_STAFF_ATTENDANCE_TBL_STAFF_ATTENDANCE">
+          <End Role="TBL_TEACHER" Type="Self.TBL_TEACHER" Multiplicity="0..1" />
+          <End Role="TBL_STAFF_ATTENDANCE" Type="Self.TBL_STAFF_ATTENDANCE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_TEACHER">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_STAFF_ATTENDANCE">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_STUDENT_ATTENDANCE_TBL_STUDENT">
+          <End Role="TBL_STUDENT" Type="Self.TBL_STUDENT" Multiplicity="0..1" />
+          <End Role="TBL_STUDENT_ATTENDANCE" Type="Self.TBL_STUDENT_ATTENDANCE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_STUDENT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_STUDENT_ATTENDANCE">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudentRegEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_ASSIGNMENT" EntityType="Self.TBL_ASSIGNMENT" />
+          <EntitySet Name="TBL_EXAM" EntityType="Self.TBL_EXAM" />
+          <EntitySet Name="TBL_EXAM_RESULT" EntityType="Self.TBL_EXAM_RESULT" />
+          <EntitySet Name="TBL_STAFF_ATTENDANCE" EntityType="Self.TBL_STAFF_ATTENDANCE" />
+          <EntitySet Name="TBL_STUDENT" EntityType="Self.TBL_STUDENT" />
+          <EntitySet Name="TBL_STUDENT_ATTENDANCE" EntityType="Self.TBL_STUDENT_ATTENDANCE" />
+          <EntitySet Name="TBL_SUBJECT" EntityType="Self.TBL_SUBJECT" />
+          <EntitySet Name="TBL_SYSUSER" EntityType="Self.TBL_SYSUSER" />
+          <EntitySet Name="TBL_TEACHER" EntityType="Self.TBL_TEACHER" />
+          <AssociationSet Name="FK_TBL_ASSIGNMENT_TBL_SUBJECT" Association="Self.FK_TBL_ASSIGNMENT_TBL_SUBJECT">
+            <End Role="TBL_SUBJECT" EntitySet="TBL_SUBJECT" />
+            <End Role="TBL_ASSIGNMENT" EntitySet="TBL_ASSIGNMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_EXAM_RESULT_TBL_EXAM" Association="Self.FK_TBL_EXAM_RESULT_TBL_EXAM">
+            <End Role="TBL_EXAM" EntitySet="TBL_EXAM" />
+            <End Role="TBL_EXAM_RESULT" EntitySet="TBL_EXAM_RESULT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_EXAM_RESULT_TBL_SUBJECT" Association="Self.FK_TBL_EXAM_RESULT_TBL_SUBJECT">
+            <End Role="TBL_SUBJECT" EntitySet="TBL_SUBJECT" />
+            <End Role="TBL_EXAM_RESULT" EntitySet="TBL_EXAM_RESULT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_STAFF_ATTENDANCE_TBL_STAFF_ATTENDANCE" Association="Self.FK_TBL_STAFF_ATTENDANCE_TBL_STAFF_ATTENDANCE">
+            <End Role="TBL_TEACHER" EntitySet="TBL_TEACHER" />
+            <End Role="TBL_STAFF_ATTENDANCE" EntitySet="TBL_STAFF_ATTENDANCE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_STUDENT_ATTENDANCE_TBL_STUDENT" Association="Self.FK_TBL_STUDENT_ATTENDANCE_TBL_STUDENT">
+            <End Role="TBL_STUDENT" EntitySet="TBL_STUDENT" />
+            <End Role="TBL_STUDENT_ATTENDANCE" EntitySet="TBL_STUDENT_ATTENDANCE" />
+          </AssociationSet>
+          <EntitySet Name="TBL_ASSINGMENT_RESULT" EntityType="StudentRegModel.TBL_ASSINGMENT_RESULT" />
+          <AssociationSet Name="FK_TBL_ASSINGMENT_RESULT_TBL_ASSIGNMENT" Association="StudentRegModel.FK_TBL_ASSINGMENT_RESULT_TBL_ASSIGNMENT">
+            <End Role="TBL_ASSIGNMENT" EntitySet="TBL_ASSIGNMENT" />
+            <End Role="TBL_ASSINGMENT_RESULT" EntitySet="TBL_ASSINGMENT_RESULT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ASSINGMENT_RESULT_TBL_SUBJECT" Association="StudentRegModel.FK_TBL_ASSINGMENT_RESULT_TBL_SUBJECT">
+            <End Role="TBL_SUBJECT" EntitySet="TBL_SUBJECT" />
+            <End Role="TBL_ASSINGMENT_RESULT" EntitySet="TBL_ASSINGMENT_RESULT" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TBL_ASSINGMENT_RESULT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectId" Type="Int32" />
+          <Property Name="AssingmentId" Type="Int32" />
+          <Property Name="Mark" Type="Int32" />
+          <Property Name="Grade" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="EvaluatedBy" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Term" Type="Int32" />
+          <Property Name="RegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_ASSIGNMENT" Relationship="StudentRegModel.FK_TBL_ASSINGMENT_RESULT_TBL_ASSIGNMENT" FromRole="TBL_ASSINGMENT_RESULT" ToRole="TBL_ASSIGNMENT" />
+          <NavigationProperty Name="TBL_SUBJECT" Relationship="StudentRegModel.FK_TBL_ASSINGMENT_RESULT_TBL_SUBJECT" FromRole="TBL_ASSINGMENT_RESULT" ToRole="TBL_SUBJECT" />
+        </EntityType>
+        <Association Name="FK_TBL_ASSINGMENT_RESULT_TBL_ASSIGNMENT">
+          <End Type="StudentRegModel.TBL_ASSIGNMENT" Role="TBL_ASSIGNMENT" Multiplicity="0..1" />
+          <End Type="StudentRegModel.TBL_ASSINGMENT_RESULT" Role="TBL_ASSINGMENT_RESULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_ASSIGNMENT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_ASSINGMENT_RESULT">
+              <PropertyRef Name="AssingmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ASSINGMENT_RESULT_TBL_SUBJECT">
+          <End Type="StudentRegModel.TBL_SUBJECT" Role="TBL_SUBJECT" Multiplicity="0..1" />
+          <End Type="StudentRegModel.TBL_ASSINGMENT_RESULT" Role="TBL_ASSINGMENT_RESULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_SUBJECT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TBL_ASSINGMENT_RESULT">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StudentRegModelStoreContainer" CdmEntityContainer="StudentRegEntities1">
+          <EntitySetMapping Name="TBL_ASSIGNMENT">
+            <EntityTypeMapping TypeName="StudentRegModel.TBL_ASSIGNMENT">
+              <MappingFragment StoreEntitySet="TBL_ASSIGNMENT">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_EXAM">
+            <EntityTypeMapping TypeName="StudentRegModel.TBL_EXAM">
+              <MappingFragment StoreEntitySet="TBL_EXAM">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_EXAM_RESULT">
+            <EntityTypeMapping TypeName="StudentRegModel.TBL_EXAM_RESULT">
+              <MappingFragment StoreEntitySet="TBL_EXAM_RESULT">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="EvaluatedBy" ColumnName="EvaluatedBy" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_STAFF_ATTENDANCE">
+            <EntityTypeMapping TypeName="StudentRegModel.TBL_STAFF_ATTENDANCE">
+              <MappingFragment StoreEntitySet="TBL_STAFF_ATTENDANCE">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="AttendanceStatus" ColumnName="AttendanceStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_STUDENT">
+            <EntityTypeMapping TypeName="StudentRegModel.TBL_STUDENT">
+              <MappingFragment StoreEntitySet="TBL_STUDENT">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="NIC" ColumnName="NIC" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_STUDENT_ATTENDANCE">
+            <EntityTypeMapping TypeName="StudentRegModel.TBL_STUDENT_ATTENDANCE">
+              <MappingFragment StoreEntitySet="TBL_STUDENT_ATTENDANCE">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="AttendanceStatus" ColumnName="AttendanceStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SUBJECT">
+            <EntityTypeMapping TypeName="StudentRegModel.TBL_SUBJECT">
+              <MappingFragment StoreEntitySet="TBL_SUBJECT">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SYSUSER">
+            <EntityTypeMapping TypeName="StudentRegModel.TBL_SYSUSER">
+              <MappingFragment StoreEntitySet="TBL_SYSUSER">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_TEACHER">
+            <EntityTypeMapping TypeName="StudentRegModel.TBL_TEACHER">
+              <MappingFragment StoreEntitySet="TBL_TEACHER">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="NIC" ColumnName="NIC" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ASSINGMENT_RESULT">
+            <EntityTypeMapping TypeName="StudentRegModel.TBL_ASSINGMENT_RESULT">
+              <MappingFragment StoreEntitySet="TBL_ASSINGMENT_RESULT">
+                <ScalarProperty Name="RegNo" ColumnName="RegNo" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="EvaluatedBy" ColumnName="EvaluatedBy" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="AssingmentId" ColumnName="AssingmentId" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
