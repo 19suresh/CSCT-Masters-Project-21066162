@@ -14,12 +14,25 @@ namespace StudentReg.Bell
         /// </summary>
         static void Main()
         {
-            ServiceBase[] ServicesToRun;
+           
+
+
+#if DEBUG
+            Service1 svc = new Service1();
+            svc.OnDebug();
+            System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
+#else
+           ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
                 new Service1()
             };
             ServiceBase.Run(ServicesToRun);
+#endif
+
         }
+
+
+
     }
 }

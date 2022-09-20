@@ -4,22 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0247773ef541431db28c5755cbcdcddc" Name="Diagram1" ZoomLevel="64">
+      <Diagram DiagramId="0247773ef541431db28c5755cbcdcddc" Name="Diagram1">
         <EntityTypeShape EntityType="StudentRegModel.TBL_ASSIGNMENT" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentRegModel.TBL_EXAM" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentRegModel.TBL_EXAM" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentRegModel.TBL_EXAM_RESULT" Width="2.125" PointX="6" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentRegModel.TBL_STAFF_ATTENDANCE" Width="1.5" PointX="3.5" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentRegModel.TBL_STUDENT" Width="1.5" PointX="6.25" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentRegModel.TBL_STUDENT_ATTENDANCE" Width="1.5" PointX="10" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentRegModel.TBL_STAFF_ATTENDANCE" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentRegModel.TBL_STUDENT" Width="1.5" PointX="5.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentRegModel.TBL_STUDENT_ATTENDANCE" Width="1.5" PointX="8" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentRegModel.TBL_SUBJECT" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentRegModel.TBL_SYSUSER" Width="1.5" PointX="7.625" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentRegModel.TBL_TEACHER" Width="1.5" PointX="0.875" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentRegModel.TBL_SYSUSER" Width="1.5" PointX="8.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentRegModel.TBL_TEACHER" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
         <AssociationConnector Association="StudentRegModel.FK_TBL_ASSIGNMENT_TBL_SUBJECT" ManuallyRouted="false" />
         <AssociationConnector Association="StudentRegModel.FK_TBL_EXAM_RESULT_TBL_EXAM" ManuallyRouted="false" />
         <AssociationConnector Association="StudentRegModel.FK_TBL_EXAM_RESULT_TBL_SUBJECT" ManuallyRouted="false" />
         <AssociationConnector Association="StudentRegModel.FK_TBL_STAFF_ATTENDANCE_TBL_STAFF_ATTENDANCE" ManuallyRouted="false" />
         <AssociationConnector Association="StudentRegModel.FK_TBL_STUDENT_ATTENDANCE_TBL_STUDENT" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="StudentRegModel.TBL_ASSINGMENT_RESULT" Width="1.5" PointX="9.875" PointY="3.25" />
+        <EntityTypeShape EntityType="StudentRegModel.TBL_ASSINGMENT_RESULT" Width="1.5" PointX="9.25" PointY="5.25" />
         <AssociationConnector Association="StudentRegModel.FK_TBL_ASSINGMENT_RESULT_TBL_ASSIGNMENT" />
         <AssociationConnector Association="StudentRegModel.FK_TBL_ASSINGMENT_RESULT_TBL_SUBJECT" />
       </Diagram>

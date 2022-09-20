@@ -96,10 +96,5 @@ namespace StudentReg.Web.Controllers
             }
             //return Json(res);
         }
-
-        public ActionResult Logout()
-        {
-            return RedirectToAction("Login", "Home");
-        }
     }
 }
